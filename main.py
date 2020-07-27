@@ -55,8 +55,6 @@ async def countdown(game_mode: GameMode):
                 description='Your ' + GameMode.get_title(game_mode) + ' is ready, countdown will begin in 60 seconds: ' + message.jump_url,
                 game_mode=game_mode,
             ))
-        solo_message_id = None
-        solo_queue_set = None
     elif game_mode == GameMode.SQUAD:
         channel = bot.get_channel(SQUAD_CHANNEL_ID)
         message = await channel.fetch_message(squad_message_id)
@@ -66,8 +64,7 @@ async def countdown(game_mode: GameMode):
                 description='Your ' + GameMode.get_title(game_mode) + ' is ready, countdown will begin in 60 seconds: ' + message.jump_url,
                 game_mode=game_mode,
             ))
-        squad_message_id = None
-        squad_queue_set = None
+
 
 
     await channel.send("Countdown will begin in 50 seconds")
@@ -81,6 +78,12 @@ async def countdown(game_mode: GameMode):
     await asyncio.sleep(1)
     await channel.send(embed=generate_play_embed(game_mode))
 
+    if game_mode == GameMode.SOLO:
+        solo_message_id = None
+        solo_queue_set = None
+    elif game_mode == GameMode.SQUAD:
+        squad_message_id = None
+        squad_queue_set = None
 
 async def solo_lobby_reaction_add(payload):
     global solo_message_id, solo_queue_set
