@@ -65,8 +65,6 @@ async def countdown(game_mode: GameMode):
                 game_mode=game_mode,
             ))
 
-
-
     await channel.send("Countdown will begin in 50 seconds")
     await asyncio.sleep(20)
     await channel.send("Countdown will begin in 30 seconds")
@@ -80,10 +78,10 @@ async def countdown(game_mode: GameMode):
 
     if game_mode == GameMode.SOLO:
         solo_message_id = None
-        solo_queue_set = None
+        solo_queue_set = set()
     elif game_mode == GameMode.SQUAD:
         squad_message_id = None
-        squad_queue_set = None
+        squad_queue_set = set()
 
 async def solo_lobby_reaction_add(payload):
     global solo_message_id, solo_queue_set
@@ -282,7 +280,6 @@ async def on_raw_reaction_remove(payload):
         game_mode=game_mode,
         ready=False,
     ))
-
 
 load_logger()
 bot.run(TOKEN)
